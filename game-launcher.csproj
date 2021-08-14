@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>game_launcher</RootNamespace>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\knight.png" />
+    <None Remove="Images\splashpng.png" />
+    <None Remove="Images\x.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\knight.png" />
+    <Resource Include="Images\splashpng.png" />
+    <Resource Include="Images\x.jpeg" />
+  </ItemGroup>
+
+</Project>
