@@ -12,7 +12,8 @@
     <Grid>
         <Image Source="Images/splashpng.png" HorizontalAlignment="Left"></Image>
         <Image Margin="554,10,10,10" Stretch="Fill" Source="Images/knight.png"/>
-        <TextBlock Name="StateText" Text="Checking for updates" Margin="89,216,89,216" Foreground="White" TextAlignment="Center"></TextBlock>
+        <TextBlock Name="StateText" Text="Checking for updates" Margin="89,134,89,73" Foreground="White" TextAlignment="Center"></TextBlock>
+        <TextBlock Name="VersionText" Text="" Margin="750,422,10,10" Foreground="White" TextAlignment="Center"></TextBlock>
         <Button Name="CloseButton" Content="x" Click="CloseButton_Click" Margin="764,10,10,417"/>
     </Grid>
 </Window>
