@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Windows;
+using System.Windows.Input;
 
 namespace game_launcher {
 
@@ -187,12 +188,13 @@ namespace game_launcher {
             } else {
 
                 StateText.Text = "Encontered a problem executing the game file.";
-
-                //if (Status == LauncherStatus.failed) {
-                //
-                //    CheckForUpdates();
-                //}
             }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
+
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 

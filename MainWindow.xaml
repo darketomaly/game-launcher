@@ -8,12 +8,16 @@
         WindowStartupLocation="CenterScreen"
         ContentRendered="Window_ContentRendered"
         AllowsTransparency="True" WindowStyle="None" Background="Transparent"
-        Title="GameLauncher" Height="450" Width="800">
+        Title="GameLauncher" Height="450" Width="800"
+        MouseDown="Window_MouseDown" FontFamily="Constantia" FontWeight="Normal">
     <Grid>
-        <Image Source="Images/splashpng.png" HorizontalAlignment="Left"></Image>
-        <Image Margin="554,10,10,10" Stretch="Fill" Source="Images/knight.png"/>
-        <TextBlock Name="StateText" Text="Checking for updates" Margin="89,134,89,73" Foreground="White" TextAlignment="Center"></TextBlock>
-        <TextBlock Name="VersionText" Text="" Margin="750,422,10,10" Foreground="White" TextAlignment="Center"></TextBlock>
-        <Button Name="CloseButton" Content="x" Click="CloseButton_Click" Margin="764,10,10,417"/>
+        <Image Source="Images/background.png" HorizontalAlignment="Left" Margin="76,27,0,-27"/>
+        <Image Margin="443,28,-8,20" Stretch="UniformToFill" Source="Images/girl.png"/>
+        <TextBlock Name="StateText" Text="Checking for updates" Margin="106,87,321,39" Foreground="White" TextAlignment="Center" FontStyle="Normal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Name="VersionText" Text="0.0.0" Margin="0,412,24,20" Foreground="White" TextAlignment="Center" HorizontalAlignment="Right"/>
+        <Button Name="CloseButton" Click="CloseButton_Click" Margin="683,28,35,392" Background="Transparent" BorderThickness="0" RenderTransformOrigin="0.5,0.5">
+            <Image Source="Images/close button.png" Width="80" Height="30"/>
+        </Button>
+
     </Grid>
 </Window>

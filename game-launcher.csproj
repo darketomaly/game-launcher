@@ -8,12 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\background.png" />
+    <None Remove="Images\Cinzel-Regular.ttf" />
+    <None Remove="Images\close button.png" />
+    <None Remove="Images\girl.png" />
     <None Remove="Images\knight.png" />
     <None Remove="Images\splashpng.png" />
     <None Remove="Images\x.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\background.png" />
+    <Resource Include="Images\Cinzel-Regular.ttf" />
+    <Resource Include="Images\close button.png" />
+    <Resource Include="Images\girl.png" />
     <Resource Include="Images\knight.png" />
     <Resource Include="Images\splashpng.png" />
     <Resource Include="Images\x.jpeg" />
