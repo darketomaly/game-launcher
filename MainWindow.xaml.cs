@@ -32,6 +32,11 @@ namespace game_launcher {
         private string zipFileLink = "https://onedrive.live.com/download?cid=105D6E48BBD23BD7&resid=105D6E48BBD23BD7%21597340&authkey=AI04J84cRNQRI44";
 
         private LauncherStatus _status;
+        private Version localVersion;
+        private bool fileExists;
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
 
         internal LauncherStatus Status {
             get => _status;
@@ -81,15 +86,11 @@ namespace game_launcher {
                 webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(CheckForUpdatesCallback);
                 webClient.DownloadStringAsync(new Uri(versionFileLink));
 
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
 
                 Status = LauncherStatus.failed;
                 StateText.Text = $"Check update failed: {e.Message}.";
             }
-
-            
         }
 
         private void CheckForUpdatesCallback(object sender, DownloadStringCompletedEventArgs e) {
@@ -97,20 +98,15 @@ namespace game_launcher {
             Version onlineVersion =
                         new Version(e.Result);
 
-            if (File.Exists(versionFile)) {
-
-                Version localVersion = new Version(File.ReadAllText(versionFile));
-                VersionText.Text = localVersion.ToString();
+            if (fileExists) {
 
                 if (onlineVersion.IsDifferentThan(localVersion)) {
 
                     StateText.Text = $"New update available ({onlineVersion})";
                     InstallGameFiles(true, onlineVersion);
 
-                } else {
-
+                } else
                     Status = LauncherStatus.ready;
-                }
 
             }  else {
 
@@ -178,9 +174,20 @@ namespace game_launcher {
             }
         }
 
+        
+
         private void Window_ContentRendered(object sender, EventArgs e) {
 
-            StateText.Text = "Initializing launcher";
+            fileExists = File.Exists(versionFile);
+
+            if (fileExists) {
+
+                localVersion = new Version(File.ReadAllText(versionFile));
+                VersionText.Text = localVersion.ToString();
+
+            } else
+                VersionText.Text = "";
+
             CheckForUpdates();
         }
 
@@ -197,20 +204,30 @@ namespace game_launcher {
 
                 ProcessStartInfo startInfo = new ProcessStartInfo(gameExe);
                 startInfo.WorkingDirectory = Path.Combine(rootPath, "conquest-remastered-build");
-                Process.Start(startInfo);
+                Process p = Process.Start(startInfo); ;
+                SetForegroundWindow(p.MainWindowHandle);
 
-                Close();
+                Environment.Exit(0);
 
-            } else {
-
+            } else
                 StateText.Text = "Encontered a problem executing the game file.";
-            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
 
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+
+        private void SocialMediaButton(object sender, RoutedEventArgs e) {
+
+            var psi = new ProcessStartInfo {
+
+                FileName = ((System.Windows.Controls.Button)sender).Tag.ToString(),
+                UseShellExecute = true
+            };
+
+            Process.Start(psi);
         }
     }
 }
