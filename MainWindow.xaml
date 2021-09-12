@@ -11,17 +11,21 @@
         Title="GameLauncher" Height="450" Width="800"
         MouseDown="Window_MouseDown" FontFamily="Constantia" FontWeight="Normal">
     <Grid>
-        <Image Source="Images/background.png" HorizontalAlignment="Left" Margin="154,46,0,-46" Width="648"/>
-        <Image Margin="443,28,-8,20" Stretch="UniformToFill" Source="Images/girl.png"/>
+        <Image Source="Images/frame.png" HorizontalAlignment="Left" Margin="150,29,0,-29" Width="648"/>
+        <Image Source="Images/frame glow background.png" HorizontalAlignment="Left" Margin="150,31,0,-31" Width="648"/>
 
-        <TextBlock x:Name="StateText" Margin="305,247,0,0" Foreground="White" TextAlignment="Center" FontStyle="Normal" HorizontalAlignment="Left" VerticalAlignment="Top"><Run Text="Checking for updates"/><LineBreak/><Run/></TextBlock>
+        <Image Margin="440,28,-8,20.1" Stretch="UniformToFill" Source="Images/girl.png"/>
+
+        <TextBlock x:Name="StateText" Margin="305,247,0,0" Foreground="White" TextAlignment="Center" FontStyle="Normal" HorizontalAlignment="Left" VerticalAlignment="Top"><Run Text="Initializing"/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="ProgressText" Margin="244,271,0,0" Foreground="White" TextAlignment="Center" FontStyle="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="231"><Run Text=""/><LineBreak/><Run/></TextBlock>
 
-        <TextBlock Name="VersionText" Text="0.0.0" Margin="0,412,24,20" Foreground="White" TextAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBlock Name="VersionText" Text="0.0.0" Margin="0,411,30,21" Foreground="White" TextAlignment="Center" HorizontalAlignment="Right"/>
 
-        <Button Name="CloseButton" Click="CloseButton_Click" Margin="683,28,35,392" Background="Transparent" BorderThickness="0" RenderTransformOrigin="0.5,0.5">
-            <Image Source="Images/close button.png" Width="80" Height="30"/>
+        <Button Name="CloseButton" Click="CloseButton_Click" Margin="716,48,32,383" Background="Transparent" BorderThickness="0" RenderTransformOrigin="0.504,0.531" >
+            <Image Source="Images/close button.png" Stretch="UniformToFill"/>
         </Button>
+        
+        <Image Source="Images/frame glow foreground.png" HorizontalAlignment="Left" Margin="150,31,0,-31" Width="648"/>
 
     </Grid>
 </Window>

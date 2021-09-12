@@ -11,6 +11,10 @@
     <None Remove="Images\background.png" />
     <None Remove="Images\Cinzel-Regular.ttf" />
     <None Remove="Images\close button.png" />
+    <None Remove="Images\frame glow background.png" />
+    <None Remove="Images\frame glow foreground.png" />
+    <None Remove="Images\frame glow.png" />
+    <None Remove="Images\frame.png" />
     <None Remove="Images\girl.png" />
     <None Remove="Images\knight.png" />
     <None Remove="Images\splashpng.png" />
@@ -21,6 +25,10 @@
     <Resource Include="Images\background.png" />
     <Resource Include="Images\Cinzel-Regular.ttf" />
     <Resource Include="Images\close button.png" />
+    <Resource Include="Images\frame glow background.png" />
+    <Resource Include="Images\frame glow foreground.png" />
+    <Resource Include="Images\frame glow.png" />
+    <Resource Include="Images\frame.png" />
     <Resource Include="Images\girl.png" />
     <Resource Include="Images\knight.png" />
     <Resource Include="Images\splashpng.png" />

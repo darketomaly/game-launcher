@@ -72,64 +72,75 @@ namespace game_launcher {
 
         private void CheckForUpdates() {
 
+            try {
+
+                StateText.Text = "Checking game files";
+
+                WebClient webClient = new WebClient();
+
+                webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(CheckForUpdatesCallback);
+                webClient.DownloadStringAsync(new Uri(versionFileLink));
+
+            }
+            catch (Exception e)
+            {
+
+                Status = LauncherStatus.failed;
+                StateText.Text = $"Check update failed: {e.Message}.";
+            }
+
+            
+        }
+
+        private void CheckForUpdatesCallback(object sender, DownloadStringCompletedEventArgs e) {
+
+            Version onlineVersion =
+                        new Version(e.Result);
+
             if (File.Exists(versionFile)) {
 
                 Version localVersion = new Version(File.ReadAllText(versionFile));
                 VersionText.Text = localVersion.ToString();
 
-                StateText.Text = "Checking for Updates";
+                if (onlineVersion.IsDifferentThan(localVersion)) {
 
-                try {
+                    StateText.Text = $"New update available ({onlineVersion})";
+                    InstallGameFiles(true, onlineVersion);
 
-                    WebClient webClient = new WebClient();
-                    Version onlineVersion = 
-                        new Version(webClient.DownloadString(versionFileLink));
+                } else {
 
-                    if (onlineVersion.IsDifferentThan(localVersion)) {
-
-                        StateText.Text = $"New update available ({onlineVersion})";
-                        InstallGameFiles(true, onlineVersion);
-
-                    } else {
-
-                        Status = LauncherStatus.ready;
-                    }
-
-                } catch (Exception e) {
-
-                    Status = LauncherStatus.failed;
-                    StateText.Text = $"Check update failed: {e.Message}.";
+                    Status = LauncherStatus.ready;
                 }
-            } else {
+
+            }  else {
 
                 StateText.Text = "No installed files detected.";
-                InstallGameFiles(false, Version.zero);
+                InstallGameFiles(false, onlineVersion);
             }
         }
 
-        
-
         private void InstallGameFiles(bool _isUpdate, Version _onlineVersion) {
 
-            try
-            {
+            try {
 
                 WebClient webClient = new WebClient();
 
                 if (_isUpdate) {
 
                     Status = LauncherStatus.downloadingUpdate;
+                    StateText.Text = $"Updating to v{_onlineVersion}...";
 
                 } else {
 
                     Status = LauncherStatus.downloadingGame;
-                    _onlineVersion = new Version(webClient.DownloadString(versionFileLink));
+                    StateText.Text = $"Downloading v{_onlineVersion}...";
+                    //_onlineVersion = new Version(webClient.DownloadString(versionFileLink));
                 }
 
                 webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(PrintProgress);
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
 
-                Status = _isUpdate ? LauncherStatus.downloadingUpdate : LauncherStatus.downloadingGame;
+                //Status = _isUpdate ? LauncherStatus.downloadingUpdate : LauncherStatus.downloadingGame;
                 ProgressText.Text = "Retrieving information...";
                 webClient.DownloadFileAsync(new Uri(zipFileLink), gameZip, _onlineVersion);
 
@@ -179,8 +190,6 @@ namespace game_launcher {
         }
 
         private void InitializeGame() {
-
-            //StateText.Text =  $"Looking for {gameExe}";
 
             if(File.Exists(gameExe) && Status == LauncherStatus.ready) {
 
