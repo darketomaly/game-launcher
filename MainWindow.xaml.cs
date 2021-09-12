@@ -27,12 +27,6 @@ namespace game_launcher {
         private string gameZip;
         private string gameExe;
 
-        //google
-        //private string versionFileLink = "https://drive.google.com/uc?export=download&id=1byyBIa-Wo1RXY1Ddv8Z_i7pic93dblsy";
-        //private string zipFileLink = "https://drive.google.com/uc?export=download&id=1mMIbLpOjdu1YnmxktQxmKLSzHFK2GVr8";
-        //bypass confirmation dialogue
-        //private string zipFileLink = "https://drive.google.com/u/0/uc?export=download&confirm=H093&id=1mMIbLpOjdu1YnmxktQxmKLSzHFK2GVr8";
-
         //onedrive
         private string versionFileLink = "https://onedrive.live.com/download?cid=105D6E48BBD23BD7&resid=105D6E48BBD23BD7%21597337&authkey=AFEUEVm9dac5UZY";
         private string zipFileLink = "https://onedrive.live.com/download?cid=105D6E48BBD23BD7&resid=105D6E48BBD23BD7%21597340&authkey=AI04J84cRNQRI44";
@@ -113,9 +107,12 @@ namespace game_launcher {
             }
         }
 
+        
+
         private void InstallGameFiles(bool _isUpdate, Version _onlineVersion) {
 
-            try {
+            try
+            {
 
                 WebClient webClient = new WebClient();
 
@@ -129,7 +126,11 @@ namespace game_launcher {
                     _onlineVersion = new Version(webClient.DownloadString(versionFileLink));
                 }
 
+                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(PrintProgress);
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
+
+                Status = _isUpdate ? LauncherStatus.downloadingUpdate : LauncherStatus.downloadingGame;
+                ProgressText.Text = "Retrieving information...";
                 webClient.DownloadFileAsync(new Uri(zipFileLink), gameZip, _onlineVersion);
 
             } catch (Exception e) {
@@ -137,6 +138,12 @@ namespace game_launcher {
                 Status = LauncherStatus.failed;
                 StateText.Text = $"Install failed: {e.Message}";
             }
+        }
+
+        private void PrintProgress(object sender, DownloadProgressChangedEventArgs e) {
+
+            ProgressText.Text = 
+                ((e.BytesReceived / 1024f) / 1024f).ToString("0.00MB") + "/" + ((e.TotalBytesToReceive / 1024f) / 1024f).ToString("0.00MB");
         }
 
         private void DownloadGameCompletedCallback(object sender, AsyncCompletedEventArgs e) {
@@ -195,65 +202,6 @@ namespace game_launcher {
 
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
-        }
-    }
-
-    struct Version {
-
-        internal static Version zero = new Version(0, 0, 0);
-
-        private short major;
-        private short minor;
-        private short subMinor;
-
-        internal Version(short _major, short _minor, short _subMinor) {
-
-            major = _major;
-            minor = _minor;
-            subMinor = _subMinor;
-        }
-
-        internal Version(string _version) {
-
-            string[] _versionStrings = _version.Split('.');
-
-            if(_versionStrings.Length != 3) {
-
-                major = 0;
-                minor = 0;
-                subMinor = 0;
-                return;
-            }
-
-            major = short.Parse(_versionStrings[0]);
-            minor = short.Parse(_versionStrings[1]);
-            subMinor = short.Parse(_versionStrings[2]);
-        }
-
-        internal bool IsDifferentThan(Version _otherVersion) {
-
-            if(major != _otherVersion.major) {
-
-                return true;
-
-            } else {
-
-                if(minor != _otherVersion.minor) {
-                    return true;
-
-                } else {
-
-                    if (subMinor != _otherVersion.subMinor)
-                        return true;
-                }
-            }
-
-            return false;
-        }
-
-        public override string ToString() {
-
-            return $"{major}.{minor}.{subMinor}";
         }
     }
 }

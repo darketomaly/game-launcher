@@ -11,10 +11,14 @@
         Title="GameLauncher" Height="450" Width="800"
         MouseDown="Window_MouseDown" FontFamily="Constantia" FontWeight="Normal">
     <Grid>
-        <Image Source="Images/background.png" HorizontalAlignment="Left" Margin="76,27,0,-27"/>
+        <Image Source="Images/background.png" HorizontalAlignment="Left" Margin="154,46,0,-46" Width="648"/>
         <Image Margin="443,28,-8,20" Stretch="UniformToFill" Source="Images/girl.png"/>
-        <TextBlock Name="StateText" Text="Checking for updates" Margin="106,87,321,39" Foreground="White" TextAlignment="Center" FontStyle="Normal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <TextBlock x:Name="StateText" Margin="305,247,0,0" Foreground="White" TextAlignment="Center" FontStyle="Normal" HorizontalAlignment="Left" VerticalAlignment="Top"><Run Text="Checking for updates"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="ProgressText" Margin="244,271,0,0" Foreground="White" TextAlignment="Center" FontStyle="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="231"><Run Text=""/><LineBreak/><Run/></TextBlock>
+
         <TextBlock Name="VersionText" Text="0.0.0" Margin="0,412,24,20" Foreground="White" TextAlignment="Center" HorizontalAlignment="Right"/>
+
         <Button Name="CloseButton" Click="CloseButton_Click" Margin="683,28,35,392" Background="Transparent" BorderThickness="0" RenderTransformOrigin="0.5,0.5">
             <Image Source="Images/close button.png" Width="80" Height="30"/>
         </Button>
