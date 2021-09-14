@@ -228,6 +228,7 @@ namespace game_launcher {
             };
 
             Process.Start(psi);
+            
         }
     }
 }

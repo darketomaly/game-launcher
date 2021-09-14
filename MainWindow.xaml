@@ -9,25 +9,41 @@
         ContentRendered="Window_ContentRendered"
         AllowsTransparency="True" WindowStyle="None" Background="Transparent"
         Title="GameLauncher" Height="450" Width="800"
-        MouseDown="Window_MouseDown" FontFamily="Constantia" FontWeight="Normal">
+        MouseDown="Window_MouseDown" FontFamily="Constantia" FontWeight="Normal"
+        ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="CustomButton" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Cursor" Value="Hand" />
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Name="border" BorderThickness="0" BorderBrush="Black" Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.8" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+
+        </Style>
+
+        <Style x:Key="CustomButtonBgBlue" TargetType="{x:Type Image}">
+            <Setter Property="Source" Value="Images/button normal.png"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Source" Value="Images/button hover.png"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CustomButtonBgRed" TargetType="{x:Type Image}">
+            <Setter Property="Source" Value="Images/button normal red.png"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Source" Value="Images/button hover red.png"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid>
@@ -42,17 +58,26 @@
 
         <TextBlock Name="VersionText" Text="" Margin="0,411,30,21" Foreground="White" TextAlignment="Center" HorizontalAlignment="Right"/>
 
-        <Button Name="CloseButton" Click="CloseButton_Click"  Style="{StaticResource CustomButton}" Margin="716,48,32,383" Background="Transparent" BorderThickness="0" RenderTransformOrigin="0.504,0.531" >
-            <Image Source="Images/close button.png" Stretch="UniformToFill"/>
+        <Button Name="CloseButton" Click="CloseButton_Click"  Style="{StaticResource CustomButton}" Margin="716,48,32,383" RenderTransformOrigin="0.504,0.531">
+            <Image Style="{StaticResource CustomButtonBgRed}"/>
         </Button>
+        <TextBlock IsHitTestVisible="False" Margin="730,51,0,0" Foreground="#CCFFFFFF" TextAlignment="Center" FontStyle="Normal" FontSize="9.5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14">
+            <Run Text="Abort"/><Run/>
+        </TextBlock>
 
-        <Button Name="DiscordButton" Click="SocialMediaButton" Tag="http://discord.gg/pnSmQVd" Style="{StaticResource CustomButton}" Margin="190,401,558,30" Background="Transparent" BorderThickness="0" RenderTransformOrigin="0.504,0.531" >
-            <Image Source="Images/close button.png" Stretch="UniformToFill"/>
+        <Button Name="DiscordButton" Click="SocialMediaButton" Tag="http://discord.gg/pnSmQVd" Style="{StaticResource CustomButton}" Margin="190,401,558,30" RenderTransformOrigin="0.504,0.531">
+            <Image Style="{StaticResource CustomButtonBgBlue}"/>
         </Button>
+        <TextBlock IsHitTestVisible="False" Margin="200,403,0,0" Foreground="#CCFFFFFF" TextAlignment="Center" FontStyle="Normal" FontSize="9.5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14">
+            <Run Text="Discord"/><Run/>
+        </TextBlock>
 
-        <Button Name="TwitterButton" Click="SocialMediaButton" Tag="http://twitter.com/ConquestRM" Style="{StaticResource CustomButton}" Margin="247,401,501,30" Background="Transparent" BorderThickness="0" RenderTransformOrigin="0.504,0.531" >
-            <Image Source="Images/close button.png" Stretch="UniformToFill"/>
+        <Button Name="TwitterButton" Click="SocialMediaButton" Tag="http://twitter.com/ConquestRM" Style="{StaticResource CustomButton}" Margin="247,401,501,30" RenderTransformOrigin="0.504,0.531">
+            <Image Style="{StaticResource CustomButtonBgBlue}"/>
         </Button>
+        <TextBlock IsHitTestVisible="False" Margin="258,403,0,0" Foreground="#CCFFFFFF" TextAlignment="Center" FontStyle="Normal" FontSize="9.5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14">
+            <Run Text="Twitter"/><Run/>
+        </TextBlock>
 
         <Image Source="Images/frame glow foreground.png" HorizontalAlignment="Left" Margin="150,31,0,-31" Width="648" IsHitTestVisible="False"/>
 

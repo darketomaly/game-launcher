@@ -9,6 +9,10 @@
 
   <ItemGroup>
     <None Remove="Images\background.png" />
+    <None Remove="Images\button hover red.png" />
+    <None Remove="Images\button hover.png" />
+    <None Remove="Images\button normal red.png" />
+    <None Remove="Images\button normal.png" />
     <None Remove="Images\CgRHVZxWwAAjjPP %282%29.png" />
     <None Remove="Images\close button.png" />
     <None Remove="Images\frame glow background.png" />
@@ -19,6 +23,10 @@
 
   <ItemGroup>
     <Resource Include="Images\background.png" />
+    <Resource Include="Images\button hover red.png" />
+    <Resource Include="Images\button hover.png" />
+    <Resource Include="Images\button normal red.png" />
+    <Resource Include="Images\button normal.png" />
     <Resource Include="Images\CgRHVZxWwAAjjPP (2).png" />
     <Resource Include="Images\close button.png" />
     <Resource Include="Images\frame glow background.png" />
